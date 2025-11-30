@@ -73,16 +73,7 @@ WSGI_APPLICATION = 'estudoDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 #uso para o banco postgres:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CursoDjango',        
-        'USER': 'Lucas',         
-        'PASSWORD': 'mefm1977',       
-        'HOST': 'localhost',          
-        'PORT': '5432',               
-    }
-}
+
 
 
 # Password validation

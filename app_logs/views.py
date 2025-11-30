@@ -12,3 +12,10 @@ def topics(request):
     context = {'topics': topics}
 
     return render(request, 'app_logs/topics.html', context)
+
+def topic(request,  topic_id):
+    """Mostra um único assunto"""
+    topic = Topic.objects.get(id = topic_id)
+    entries = topic.entry_set.order.by("-date_added")
+    context = {'topic': topic, 'entries':entries}
+    return render(request, 'app_logs/topic.html', context)
