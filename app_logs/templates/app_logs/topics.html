@@ -1,0 +1,11 @@
+{%extends "app_logs/base.html"%}
+
+{% block content %}
+    <ul>
+        {% for topic in topics %}
+        <li>{{ topic }}</li>
+        {% empty %}
+            <li>Não há topicos adicionados</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
