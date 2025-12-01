@@ -1,0 +1,15 @@
+{% extends "app_logs/base.html" %}
+
+{% block content %}
+    <form action="{% url 'new_topic' %}" method='post'>
+        {% csrf_token %} 
+        {{ form.as_P }}
+        <button name="submit"></button>
+    </form>
+
+    
+
+{% endblock content %}
+
+<!-- preciso do {% csrf_token %} para formularios  -->
+ <!-- form.as_P: formatação  -->
