@@ -4,7 +4,7 @@
 
     <p>Tópico: {{ topic }}</p>
 
-    <p>Entradas: </p>
+    <p>Anotações: </p>
 
     <p>
         <a href="{% url 'new_entry' topic.id%}">Adicione uma anotação</a>
@@ -16,6 +16,9 @@
         <li>
             <p>{{ entry.date_added | date: 'M d, Y H:i' }}</p>
             <p>{{ entry.text | linebreak }}</p>
+            <p>
+                <a href="% url 'edit_entry' entry.id %">Editar anotação</a>
+            </p>
         </li>
 
         {% empyty %}
