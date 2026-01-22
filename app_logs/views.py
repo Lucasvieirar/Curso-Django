@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -11,7 +11,7 @@ def index(request):
 @login_required
 def topics(request):
     """Mostra os assuntos"""
-    topic = Topic.objects.order_by('date_added')
+    topic = Topic.objects.filter(owner = request.user).order_by('date_added')
 
     context = {'topics': topics}
 
@@ -20,6 +20,9 @@ def topics(request):
 def topic(request,  topic_id):
     """Mostra um único assunto"""
     topic = Topic.objects.get(id = topic_id)
+    #Garente que o assunto pertece ao usuario atual
+    if topic.woner != request.user:
+        raise Http404
     entries = topic.entry_set.order.by("-date_added")
     context = {'topic': topic, 'entries':entries}
     return render(request, 'app_logs/topic.html', context)
@@ -34,6 +37,8 @@ def new_topic(request):
         # Dados de POST submetidos; processa os dados
         form = TopicForm(request.POST)
         if form.is_valid():
+            new_topic = form.save(commit = False)
+            new_topic.owner = request.user
             form.save()
             return HttpResponseRedirect(reverse('topics'))
     context = {'form': form}
@@ -42,7 +47,11 @@ def new_topic(request):
 def new_entry(request, topic_id):
     """Acrescenta uma nova entrada par aum assunto e particular"""
     topic = Topic.objects.get(id=topic_id)
+     #Garente que o assunto pertece ao usuario atual
 
+    if topic.woner != request.user:
+        raise Http404
+    
     if request.method != 'POST':
         # Nenhum dado submetio; cria um formalario:
         form = EntryForm()
