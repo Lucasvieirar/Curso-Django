@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_logs',
     'users',
+
+    #apps de terceiros
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +125,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # URL DE LOGIN PAGE
 
 LOGIN_URL = '/user/login'
+
+# Bootstrap5
+BOOTSTRAP3  ={
+    'include__jquery': True,
+}
